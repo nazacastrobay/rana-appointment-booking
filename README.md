@@ -7,10 +7,13 @@ Live: https://rana-appointment-demo.vercel.app
 ## Project layout
 
 ```
-index.html          # the whole UI (styles + JS inline)
+index.html                    # the whole UI (styles + JS inline)
 assets/rana-logo.png
-api/book.js         # serverless function — validates + writes to Airtable
-.env.example        # template for required env vars
+lib/booking.js                # shared booking logic (validation + Airtable write)
+api/book.js                   # Vercel serverless function wrapper
+netlify/functions/book.js     # Netlify function wrapper
+netlify.toml                  # redirects /api/book → /.netlify/functions/book
+.env.example                  # template for required env vars
 ```
 
 ## How it works
@@ -38,11 +41,21 @@ Open http://localhost:3000.
 
 ## Deploy
 
+### Vercel
+
 ```bash
 vercel deploy --prod
 ```
 
 The project is already linked to the Vercel project `linktree-scrapers-projects/rana-appointment-demo` (see `.vercel/project.json`). The production URL (`rana-appointment-demo.vercel.app`) is public; preview URLs are gated by Vercel team SSO.
+
+### Netlify
+
+The repo is deploy-agnostic — `netlify.toml` routes `/api/book` to a Netlify function that wraps the same shared logic in `lib/booking.js`. To deploy:
+
+1. Connect the repo on Netlify (or run `netlify deploy --prod` with the CLI)
+2. Set `AIRTABLE_TOKEN` in Netlify's site env vars
+3. `index.html` works unchanged — the client still POSTs to `/api/book`
 
 ## Env vars on Vercel
 
@@ -60,4 +73,4 @@ The UI is hardcoded with Rana's brand colors, logo, store list, and zip code loo
 1. Swap the logo in `assets/`
 2. Update brand tokens in the `:root` block of `index.html`
 3. Replace the `stores` array and `zipCentroids` dictionary in the `<script>` block
-4. Create a new Airtable table with the same schema and update `AIRTABLE_TABLE_ID` in `api/book.js`
+4. Create a new Airtable table with the same schema and update `AIRTABLE_BASE_ID` / `AIRTABLE_TABLE_ID` in `lib/booking.js`
