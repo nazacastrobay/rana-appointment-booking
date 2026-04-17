@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book Your Visit · Rana Furniture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1990966894603018');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1990966894603018&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+  <style>
+    :root {
+      --green: #00ae42;
+      --green-dark: #00913a;
+      --teal: #103d42;
+      --teal-soft: #1b5258;
+      --gold: #f3d02e;
+      --cream: #fdfbf5;
+      --ink: #0f2428;
+      --muted: #6b7c80;
+      --line: #e6e2d8;
+      --shadow: 0 20px 60px -15px rgba(16, 61, 66, .18);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 34px;
+      width: auto;
+      display: block
+    }
+
+    .logo .text {
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -.01em;
+      font-size: 17px;
+      display: none;
+    }
+
+    .logo img.fallback+.text {
+      display: block
+    }
+
+    .header-note {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .header-note strong {
+      color: var(--teal);
+      font-weight: 600
+    }
+
+    .progress {
+      height: 4px;
+      background: var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--green);
+      width: 0;
+      transition: width .5s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px 140px;
+    }
+
+    .step {
+      width: 100%;
+      max-width: 680px;
+      display: none;
+      animation: fade .4s ease;
+    }
+
+    .step.active {
+      display: block
+    }
+
+    .step.intro.active {
+      display: grid
+    }
+
+    @media (max-width:900px) {
+      .step.intro.active {
+        display: block
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--teal);
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+      max-width: 560px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    @media (max-width:640px) {
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .choice {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 20px 22px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: all .15s ease;
+      min-height: 72px;
+    }
+
+    .choice:hover {
+      border-color: var(--green);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px -8px rgba(0, 174, 66, .25);
+    }
+
+    .choice.selected {
+      border-color: var(--green);
+      background: #f0fbf4;
+    }
+
+    .choice .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .choice.selected .icon {
+      background: #d7f5e2
+    }
+
+    .choice .label {
+      flex: 1
+    }
+
+    .choice .hint {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .choice .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .choice.selected .check {
+      background: var(--green);
+      border-color: var(--green)
+    }
+
+    .choice.selected .check::before {
+      content: '✓'
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    input[type=date],
+    textarea,
+    select {
+      width: 100%;
+      padding: 16px 18px;
+      font-family: inherit;
+      font-size: 16px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      transition: border-color .15s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px
+    }
+
+    .field {
+      margin-bottom: 16px
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 8px;
+      letter-spacing: .01em;
+    }
+
+    .field label .opt {
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 4px
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width:640px) {
+      .products {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .product .img {
+      aspect-ratio: 4/3;
+      background-size: cover;
+      background-position: center;
+      background-color: #eee;
+    }
+
+    .product .meta {
+      padding: 12px 14px
+    }
+
+    .product .name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal)
+    }
+
+    .product .cat {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 2px
+    }
+
+    .stores {
+      margin-top: 18px
+    }
+
+    .store {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      transition: all .15s ease;
+    }
+
+    .store:hover {
+      border-color: var(--green)
+    }
+
+    .store.selected {
+      border-color: var(--green);
+      background: #f0fbf4
+    }
+
+    .store-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .store-name {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 16px
+    }
+
+    .store-addr {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .store-distance {
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+      white-space: nowrap;
+      background: #f0fbf4;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .store.selected .store-distance {
+      background: #fff
+    }
+
+    .slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px
+    }
+
+    @media (max-width:480px) {
+      .slots {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .slot {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: all .15s ease;
+    }
+
+    .slot small {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px
+    }
+
+    .slot:hover {
+      border-color: var(--green)
+    }
+
+    .slot.selected {
+      border-color: var(--green);
+      background: #f0fbf4;
+      color: var(--green-dark)
+    }
+
+    .slot.selected small {
+      color: var(--green-dark)
+    }
+
+    .actions {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 18px 24px 32px;
+      background: linear-gradient(to top, var(--cream) 70%, rgba(253, 251, 245, .85) 90%, transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      z-index: 5;
+    }
+
+    .actions-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .btn {
+      padding: 16px 34px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .15s ease;
+      min-height: 54px;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 6px 18px -6px rgba(0, 174, 66, .5);
+    }
+
+    .btn-primary:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px)
+    }
+
+    .btn-primary:disabled {
+      background: #c4d9c9;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .btn-ghost:hover {
+      color: var(--teal)
+    }
+
+    .btn-ghost:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    /* Confirmation */
+    .confirm {
+      text-align: center;
+      max-width: 560px;
+    }
+
+    .confirm .check-big {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: var(--green);
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 42px;
+      box-shadow: 0 16px 40px -12px rgba(0, 174, 66, .5);
+      animation: pop .5s cubic-bezier(.2, 1.4, .6, 1);
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(.3);
+        opacity: 0
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .confirm h1 {
+      margin-bottom: 14px
+    }
+
+    .confirm .details {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 28px 0;
+      text-align: left;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      gap: 16px;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .detail-row:first-child {
+      padding-top: 0
+    }
+
+    .detail-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      text-align: right;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    .detail-value a {
+      color: var(--green);
+      text-decoration: none
+    }
+
+    .detail-value a:hover {
+      text-decoration: underline
+    }
+
+    .advisor-card {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-soft) 100%);
+      color: #fff;
+      padding: 24px;
+      border-radius: 16px;
+      margin-top: 20px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .advisor-emoji {
+      font-size: 36px
+    }
+
+    .advisor-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px
+    }
+
+    .advisor-card p {
+      font-size: 13px;
+      opacity: .85;
+      line-height: 1.5
+    }
+
+    .reset {
+      display: inline-block;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Step 3 — Map + stores split layout */
+    .step-wide {
+      max-width: 980px !important
+    }
+
+    .stores-split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width:780px) {
+      .stores-split {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .map-box {
+      height: 460px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #e6f0e8;
+    }
+
+    @media (max-width:780px) {
+      .map-box {
+        height: 320px
+      }
+    }
+
+    .leaflet-container {
+      background: #eef5ef;
+      font-family: inherit
+    }
+
+    .store-marker {
+      width: 28px;
+      height: 36px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .store-marker .pin {
+      width: 28px;
+      height: 28px;
+      background: var(--green);
+      border: 2px solid #fff;
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      box-shadow: 0 4px 10px rgba(16, 61, 66, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .store-marker .pin span {
+      transform: rotate(45deg);
+      font-family: inherit
+    }
+
+    .store-marker.selected .pin {
+      background: var(--teal);
+      transform: rotate(-45deg) scale(1.2)
+    }
+
+    .store-marker.nearest .pin {
+      background: var(--gold);
+      color: var(--teal)
+    }
+
+    .user-marker {
+      width: 20px;
+      height: 20px;
+      background: #2563eb;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .25);
+    }
+
+    .stores-list-compact {
+      max-height: 460px;
+      overflow-y: auto;
+      padding-right: 4px
+    }
+
+    @media (max-width:780px) {
+      .stores-list-compact {
+        max-height: none
+      }
+    }
+
+    /* Step 4 — Calendly-style calendar */
+    .calendar {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .cal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .cal-head .month {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 16px;
+    }
+
+    .cal-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .cal-nav button {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--teal);
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s ease;
+    }
+
+    .cal-nav button:hover:not(:disabled) {
+      background: #f0fbf4;
+      border-color: var(--green)
+    }
+
+    .cal-nav button:disabled {
+      opacity: .3;
+      cursor: not-allowed
+    }
+
+    .cal-dow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .cal-dow div {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 6px 0;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-family: inherit;
+      transition: all .15s ease;
+    }
+
+    .cal-day.empty {
+      visibility: hidden
+    }
+
+    .cal-day.disabled {
+      color: #c4c8ca;
+      cursor: not-allowed
+    }
+
+    .cal-day.available {
+      background: #e6f5ec;
+      color: var(--green-dark);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cal-day.available:hover {
+      background: var(--green);
+      color: #fff
+    }
+
+    .cal-day.selected {
+      background: var(--green) !important;
+      color: #fff !important;
+      font-weight: 700
+    }
+
+    .cal-day.today {
+      position: relative
+    }
+
+    .cal-day.today::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: currentColor;
+      border-radius: 50%;
+    }
+
+    .picked-date {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .picked-date .when-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+
+    /* Step 5 — contact form extras */
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width:480px) {
+      .name-row {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .input-error {
+      border-color: #dc2626 !important
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #dc2626;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .input-ok {
+      border-color: #16a34a !important
+    }
+
+    /* Intro step — two-column hero with floating cards */
+    .intro {
+      max-width: 1080px;
+      width: 100%;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    @media (max-width:900px) {
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center
+      }
+    }
+
+    .intro-copy .hero-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .intro h1 {
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: var(--teal);
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .intro .lead {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.55;
+      max-width: 480px;
+    }
+
+    @media (max-width:900px) {
+      .intro .lead {
+        margin-left: auto;
+        margin-right: auto
+      }
+    }
+
+    .intro .trust {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width:900px) {
+      .intro .trust {
+        justify-content: center
+      }
+    }
+
+    .trust-item .n {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .trust-item .l {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 4px;
+    }
+
+    .intro-hero {
+      position: relative;
+      aspect-ratio: 4/5;
+      max-height: 600px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d7f5e2 0%, #e6f4e8 50%, #f5efd6 100%);
+    }
+
+    .intro-hero-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .floating-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 18px 40px -12px rgba(16, 61, 66, .25);
+      font-size: 13px;
+    }
+
+    .card-advisor {
+      top: 32px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 220px;
+    }
+
+    .card-advisor .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .card-advisor .name {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 14px
+    }
+
+    .card-advisor .role {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-top: 2px
+    }
+
+    .card-service {
+      bottom: 28px;
+      right: 24px;
+      max-width: 240px;
+    }
+
+    .card-service .eyebrow-s {
+      display: inline-block;
+      background: #f0fbf4;
+      color: var(--green-dark);
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    .card-service .title {
+      font-weight: 700;
+      color: var(--teal);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card-service .options {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-service .opt {
+      background: var(--cream);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+
+    .card-rating {
+      top: 50%;
+      right: -8px;
+      background: var(--teal);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-rating .stars {
+      color: var(--gold);
+      letter-spacing: 2px
+    }
+
+    @media (max-width:900px) {
+      .intro-hero {
+        max-width: 420px;
+        margin: 48px auto 0;
+        aspect-ratio: 1;
+        max-height: 420px
+      }
+
+      .card-advisor {
+        top: 20px;
+        left: 16px
+      }
+
+      .card-service {
+        bottom: 20px;
+        right: 16px
+      }
+
+      .card-rating {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <img src="assets/rana-logo.png" alt="Rana Furniture"
+          onerror="this.classList.add('fallback');this.style.display='none'">
+        <span class="text">Rana Furniture</span>
+      </div>
+      <div class="header-note">Book your <strong>free showroom visit</strong></div>
+    </header>
+
+    <div class="progress">
+      <div class="progress-bar" id="bar"></div>
+    </div>
+
+    <main>
+      <!-- Step 0: Intro -->
+      <section class="step intro active" data-step="0">
+        <div class="intro-copy">
+          <div class="hero-tag">In-store · By appointment</div>
+          <h1>Book your appointment.</h1>
+          <p class="lead">Thirty minutes at your closest showroom with an advisor who can help you plan a room, or just
+            answer questions.</p>
+          <div class="trust">
+            <div class="trust-item">
+              <div class="n">Free</div>
+              <div class="l">Every appointment</div>
+            </div>
+            <div class="trust-item">
+              <div class="n">30 min</div>
+              <div class="l">Typical visit</div>
+            </div>
+            <div class="trust-item">
+              <div class="n">6</div>
+              <div class="l">Showrooms</div>
+            </div>
+          </div>
+        </div>
+        <div class="intro-hero">
+          <div class="intro-hero-img"
+            style="background-image:url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=900&q=80')">
+          </div>
+          <div class="floating-card card-advisor">
+            <div class="avatar"
+              style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80')">
+            </div>
+            <div>
+              <div class="name">Carla M.</div>
+              <div class="role">Hialeah showroom</div>
+            </div>
+          </div>
+          <div class="floating-card card-service">
+            <span class="eyebrow-s">Your visit</span>
+            <div class="title">Showroom appointment</div>
+            <div class="options">
+              <span class="opt">Room planning</span>
+              <span class="opt">Furniture picks</span>
+              <span class="opt">Financing</span>
+            </div>
+          </div>
+          <div class="floating-card card-rating">
+            <span class="stars">★★★★★</span>
+            <span>4.6 · 2,100+ reviews</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 1: Category -->
+      <section class="step" data-step="1">
+        <div class="eyebrow">Step 1 of 5</div>
+        <h1>What are you looking for?</h1>
+        <p class="sub">Pick the room you're shopping for. You can browse the rest when you get here.</p>
+        <div class="grid grid-2" id="categoryGrid"></div>
+      </section>
+
+      <!-- Step 2: Occasion -->
+      <section class="step" data-step="2">
+        <div class="eyebrow">Step 2 of 5</div>
+        <h1>What's the occasion?</h1>
+        <p class="sub">So we know what to have ready when you get there.</p>
+        <div class="grid grid-2" id="occasionGrid"></div>
+      </section>
+
+      <!-- Step 3: Store (with map) -->
+      <section class="step step-wide" data-step="3">
+        <div class="eyebrow">Step 3 of 5</div>
+        <h1>Which showroom works for you?</h1>
+        <p class="sub">Type your zip and we'll drop a pin on the closest one. Then pick it to confirm.</p>
+        <div class="field" style="max-width:280px">
+          <label>Your zip code <span class="opt">(optional)</span></label>
+          <input type="text" id="zipInput" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="e.g. 33144">
+        </div>
+        <div class="stores-split">
+          <div class="map-box" id="mapBox"></div>
+          <div class="stores-list-compact" id="storesList"></div>
+        </div>
+        <div class="error-msg" id="storeHint" style="display:none;margin-top:12px;text-align:center">Pick a showroom
+          above to continue.</div>
+      </section>
+
+      <!-- Step 4: When (calendar) -->
+      <section class="step" data-step="4">
+        <div class="eyebrow">Step 4 of 5</div>
+        <h1>When do you want to visit?</h1>
+        <p class="sub">Pick a day in the next two weeks, then a time of day.</p>
+        <div class="calendar" id="calendar"></div>
+      </section>
+
+      <!-- Step 5: Contact -->
+      <section class="step" data-step="5">
+        <div class="eyebrow">Step 5 of 5 · Almost done</div>
+        <h1>How do we reach you?</h1>
+        <p class="sub">You'll get a confirmation now and a reminder the day before.</p>
+        <div class="name-row">
+          <div class="field">
+            <label>First name</label>
+            <input type="text" id="firstNameInput" placeholder="Jane" autocomplete="given-name">
+            <div class="error-msg" id="firstNameError" style="display:none"></div>
+          </div>
+          <div class="field">
+            <label>Last name</label>
+            <input type="text" id="lastNameInput" placeholder="Gonzalez" autocomplete="family-name">
+            <div class="error-msg" id="lastNameError" style="display:none"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="tel" id="phoneInput" placeholder="(305) 555-0100" autocomplete="tel" maxlength="18">
+          <div class="error-msg" id="phoneError" style="display:none"></div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="emailInput" placeholder="you@example.com" autocomplete="email">
+          <div class="error-msg" id="emailError" style="display:none"></div>
+        </div>
+        <div class="field">
+          <label>Anything we should know ahead of your visit? <span class="opt">(optional)</span></label>
+          <textarea id="noteInput" placeholder="Room size, colors you like, when you need it by..."></textarea>
+        </div>
+      </section>
+
+      <!-- Confirmation -->
+      <section class="step" data-step="confirm">
+        <div class="confirm">
+          <div class="check-big">✓</div>
+          <h1 id="confirmTitle">You're booked!</h1>
+          <p class="sub" id="confirmLead" style="margin-left:auto;margin-right:auto"></p>
+          <div class="details">
+            <div class="detail-row">
+              <div class="detail-label">Store</div>
+              <div class="detail-value" id="sumStore"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Address</div>
+              <div class="detail-value" id="sumAddress"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Phone</div>
+              <div class="detail-value" id="sumPhone"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">When</div>
+              <div class="detail-value" id="sumWhen"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Looking for</div>
+              <div class="detail-value" id="sumLooking"></div>
+            </div>
+            <div class="detail-row">
+              <div class="detail-label">Directions</div>
+              <div class="detail-value"><a id="sumMapLink" target="_blank" rel="noopener">Open in Google Maps →</a>
+              </div>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-emoji">👋</div>
+            <div>
+              <h3>We'll be ready for you</h3>
+              <p>Someone from the showroom team will greet you at the door and walk you through everything, from picking
+                pieces to financing and delivery.</p>
+            </div>
+          </div>
+          <div class="reset" onclick="resetFlow()">Book another visit</div>
+        </div>
+      </section>
+    </main>
+
+    <div class="actions" id="actions">
+      <div class="actions-inner">
+        <button class="btn btn-ghost" id="backBtn" onclick="back()">← Back</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="next()">Get started</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    // ----- DATA -----
+    const stores = [
+      { id: 'hialeah', name: 'Hialeah', address: '1460 W 49th Street', city: 'Hialeah, FL', zip: '33012', phone: '305-512-9320', lat: 25.8577, lng: -80.2921 },
+      { id: 'palmetto', name: 'Palmetto', address: '4700 NW 167th Street', city: 'Miami Gardens, FL', zip: '33014', phone: '(305) 471-4761', lat: 25.9245, lng: -80.2631 },
+      { id: 'pembroke', name: 'Pembroke Lakes', address: '11251 Pines Blvd', city: 'Pembroke Pines, FL', zip: '33026', phone: '(954) 962-3795', lat: 26.0103, lng: -80.2711, tag: 'Newest location' },
+      { id: 'calle8', name: 'Calle 8', address: '5891 SW 8th Street', city: 'West Miami, FL', zip: '33144', phone: '(305) 269-4070', lat: 25.7631, lng: -80.2975 },
+      { id: 'kendall', name: 'Kendall', address: '11247 SW 40th St', city: 'Miami, FL', zip: '33165', phone: '(786) 785-5180', lat: 25.7225, lng: -80.3776 },
+      { id: 'homestead', name: 'Homestead', address: '2497 NE 10th Court', city: 'Homestead, FL', zip: '33033', phone: '(786) 515-2347', lat: 25.4687, lng: -80.4476 },
+    ];
+
+    // Approximate centroids for common South Florida zips (for zip→nearest-store ranking)
+    const zipCentroids = {
+      '33010': [25.8395, -80.2780], '33012': [25.8577, -80.2921], '33013': [25.8663, -80.2735], '33014': [25.9245, -80.2631],
+      '33015': [25.9290, -80.3180], '33016': [25.8846, -80.3241], '33018': [25.9200, -80.3500],
+      '33025': [26.0260, -80.2550], '33026': [26.0103, -80.2711], '33027': [25.9790, -80.3440], '33028': [26.0020, -80.3210], '33029': [26.0220, -80.3770],
+      '33030': [25.4870, -80.4950], '33031': [25.5210, -80.5040], '33032': [25.5330, -80.4050], '33033': [25.4687, -80.4476], '33034': [25.4840, -80.5810], '33035': [25.4200, -80.4600],
+      '33054': [25.9180, -80.2410], '33055': [25.9430, -80.2580], '33056': [25.9590, -80.2470],
+      '33125': [25.7830, -80.2370], '33126': [25.7650, -80.3180], '33127': [25.8140, -80.2050], '33128': [25.7830, -80.1940], '33129': [25.7560, -80.2020],
+      '33130': [25.7700, -80.1980], '33131': [25.7650, -80.1890], '33132': [25.7850, -80.1860], '33133': [25.7300, -80.2430], '33134': [25.7510, -80.2650],
+      '33135': [25.7660, -80.2370], '33136': [25.7860, -80.1970], '33137': [25.8130, -80.1860], '33138': [25.8520, -80.1840], '33139': [25.7810, -80.1330],
+      '33140': [25.8150, -80.1290], '33141': [25.8530, -80.1240], '33142': [25.8110, -80.2360], '33143': [25.7050, -80.2940], '33144': [25.7631, -80.2975],
+      '33145': [25.7520, -80.2390], '33146': [25.7220, -80.2730], '33147': [25.8570, -80.2380], '33149': [25.7080, -80.1610],
+      '33150': [25.8410, -80.2100], '33154': [25.8770, -80.1310], '33155': [25.7380, -80.3060], '33156': [25.6660, -80.3030], '33157': [25.6080, -80.3520],
+      '33158': [25.6470, -80.3210], '33160': [25.9480, -80.1310], '33161': [25.8900, -80.1810], '33162': [25.9280, -80.1850], '33165': [25.7225, -80.3776],
+      '33166': [25.8230, -80.2960], '33167': [25.8790, -80.2390], '33168': [25.8960, -80.2240], '33169': [25.9470, -80.2000],
+      '33170': [25.5980, -80.4350], '33172': [25.7830, -80.3770], '33173': [25.7010, -80.3780], '33174': [25.7620, -80.3610], '33175': [25.7280, -80.4050],
+      '33176': [25.6600, -80.3630], '33177': [25.6050, -80.3990], '33178': [25.8360, -80.3890], '33179': [25.9600, -80.1830], '33180': [25.9610, -80.1430],
+      '33181': [25.8830, -80.1630], '33182': [25.7560, -80.4330], '33183': [25.6920, -80.4050], '33184': [25.7630, -80.4170], '33185': [25.7290, -80.4370],
+      '33186': [25.6630, -80.4100], '33187': [25.6230, -80.4770], '33189': [25.5720, -80.3520], '33190': [25.5800, -80.3350], '33193': [25.7030, -80.4330], '33194': [25.7850, -80.4330], '33196': [25.6570, -80.4400],
+      '33301': [26.1230, -80.1400], '33308': [26.1810, -80.1100], '33309': [26.1820, -80.1660], '33311': [26.1420, -80.1740], '33312': [26.0990, -80.1770],
+      '33313': [26.1430, -80.2180], '33314': [26.0830, -80.2210], '33315': [26.1030, -80.1570], '33316': [26.1050, -80.1320], '33317': [26.1240, -80.2260], '33319': [26.1690, -80.2260],
+      '33321': [26.2050, -80.2680], '33322': [26.1590, -80.2800], '33323': [26.1450, -80.3140], '33324': [26.1210, -80.2730], '33325': [26.1160, -80.3120], '33326': [26.1240, -80.3500], '33327': [26.1450, -80.3770], '33328': [26.0830, -80.2830], '33330': [26.0660, -80.3190], '33331': [26.0410, -80.3500], '33332': [26.0330, -80.4000],
+      '33351': [26.1980, -80.2380],
+    };
+
+    const categories = [
+      { id: 'living', label: 'Living Room', hint: 'Sofas, sectionals, accent pieces', icon: '🛋️' },
+      { id: 'bedroom', label: 'Bedroom', hint: 'Beds, dressers, nightstands', icon: '🛏️' },
+      { id: 'dining', label: 'Dining', hint: 'Tables, chairs, buffets', icon: '🍽️' },
+      { id: 'kitchen', label: 'Kitchen', hint: 'Islands, barstools, storage', icon: '🪑' },
+      { id: 'mattress', label: 'Mattresses', hint: 'Top brands, all sizes', icon: '😴' },
+      { id: 'help', label: 'Not sure yet, help me pick', hint: 'Let an advisor guide the visit', icon: '💬' },
+    ];
+
+    const occasions = [
+      { id: 'redecor', label: 'Redecorating', hint: 'Refreshing a space I already have', icon: '🎨' },
+      { id: 'moving', label: 'Moving into a new place', hint: 'Furnishing a new home', icon: '📦' },
+      { id: 'office', label: 'Furnishing an office', hint: 'Home office or business space', icon: '💼' },
+      { id: 'unsure', label: 'Just looking', hint: 'I\'ll know it when I see it', icon: '🤷' },
+    ];
+
+    // ----- STATE -----
+    const state = {
+      step: 0,
+      category: null,
+      occasion: null,
+      storeId: null,
+      date: null,
+      slot: null,
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      note: '',
+    };
+    const TOTAL_STEPS = 5;
+    const STORE_STEP = 3;
+    const WHEN_STEP = 4;
+    const CONTACT_STEP = 5;
+
+    // ----- RENDERING -----
+    function renderChoiceGrid(container, items, stateKey) {
+      container.innerHTML = '';
+      items.forEach(item => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.innerHTML = `
+      <div class="icon">${item.icon}</div>
+      <div class="label">${item.label}${item.hint ? `<span class="hint">${item.hint}</span>` : ''}</div>
+      <div class="check"></div>
+    `;
+        btn.onclick = () => {
+          state[stateKey] = item.id;
+          container.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+          btn.classList.add('selected');
+          updateNextBtn();
+        };
+        if (state[stateKey] === item.id) btn.classList.add('selected');
+        container.appendChild(btn);
+      });
+    }
+
+    function haversine(lat1, lng1, lat2, lng2) {
+      const R = 3959; // miles
+      const toRad = d => d * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLng = toRad(lng2 - lng1);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function rankStores(zip) {
+      const centroid = zipCentroids[zip];
+      if (!centroid) return stores.map(s => ({ ...s, distance: null }));
+      const [lat, lng] = centroid;
+      return stores
+        .map(s => ({ ...s, distance: haversine(lat, lng, s.lat, s.lng) }))
+        .sort((a, b) => a.distance - b.distance);
+    }
+
+    // ----- MAP -----
+    let map = null;
+    const markers = {};
+    let userMarker = null;
+
+    function initMap() {
+      if (map) return;
+      map = L.map('mapBox', {
+        zoomControl: true,
+        scrollWheelZoom: false,
+        attributionControl: false,
+      });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+      }).addTo(map);
+      L.control.attribution({ prefix: false }).addAttribution('© OpenStreetMap · CARTO').addTo(map);
+
+      stores.forEach(s => {
+        const el = document.createElement('button');
+        el.className = 'store-marker';
+        el.innerHTML = `<div class="pin"><span>${s.name[0]}</span></div>`;
+        el.onclick = () => selectStore(s.id);
+        const icon = L.divIcon({
+          className: '',
+          html: el.outerHTML,
+          iconSize: [28, 36],
+          iconAnchor: [14, 36],
+        });
+        const m = L.marker([s.lat, s.lng], { icon }).addTo(map);
+        m.on('click', () => selectStore(s.id));
+        markers[s.id] = m;
+      });
+
+      const bounds = L.latLngBounds(stores.map(s => [s.lat, s.lng]));
+      map.fitBounds(bounds, { padding: [30, 30] });
+    }
+
+    function refreshMarkers() {
+      const zip = document.getElementById('zipInput').value.trim();
+      const ranked = rankStores(zip);
+      const nearestId = (ranked[0] && ranked[0].distance != null) ? ranked[0].id : null;
+
+      Object.entries(markers).forEach(([id, m]) => {
+        const isSelected = state.storeId === id;
+        const isNearest = nearestId === id;
+        const letter = stores.find(s => s.id === id).name[0];
+        const cls = ['store-marker', isSelected ? 'selected' : '', isNearest && !isSelected ? 'nearest' : ''].filter(Boolean).join(' ');
+        const html = `<div class="${cls}"><div class="pin"><span>${letter}</span></div></div>`;
+        m.setIcon(L.divIcon({ className: '', html, iconSize: [28, 36], iconAnchor: [14, 36] }));
+      });
+    }
+
+    function updateUserMarker(zip) {
+      if (userMarker) { map.removeLayer(userMarker); userMarker = null; }
+      const centroid = zipCentroids[zip];
+      if (!centroid || !map) return;
+      const [lat, lng] = centroid;
+      userMarker = L.marker([lat, lng], {
+        icon: L.divIcon({ className: '', html: '<div class="user-marker"></div>', iconSize: [20, 20], iconAnchor: [10, 10] }),
+        zIndexOffset: 500,
+      }).addTo(map);
+      // fit to user + nearest store
+      const ranked = rankStores(zip);
+      const nearest = ranked[0];
+      const bounds = L.latLngBounds([[lat, lng], [nearest.lat, nearest.lng]]);
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 12 });
+    }
+
+    function selectStore(id) {
+      state.storeId = id;
+      renderStoresList();
+      refreshMarkers();
+      updateStoreHint();
+      updateNextBtn();
+      const s = stores.find(x => x.id === id);
+      if (map) map.flyTo([s.lat, s.lng], Math.max(map.getZoom(), 12), { duration: .5 });
+    }
+    function updateStoreHint() {
+      const hint = document.getElementById('storeHint');
+      if (!hint) return;
+      hint.style.display = state.storeId ? 'none' : 'block';
+    }
+
+    function renderStoresList() {
+      const zip = document.getElementById('zipInput').value.trim();
+      const ranked = rankStores(zip);
+      const list = document.getElementById('storesList');
+      list.innerHTML = ranked.map((s, i) => {
+        const isNearest = s.distance != null && i === 0;
+        return `
+    <div class="store ${state.storeId === s.id ? 'selected' : ''}" data-id="${s.id}">
+      <div class="store-info">
+        <div class="store-name">${s.name}${isNearest ? ` <span style="font-size:10px;color:var(--teal);background:var(--gold);padding:2px 8px;border-radius:999px;vertical-align:2px;font-weight:700;letter-spacing:.04em">CLOSEST</span>` : ''}${s.tag ? ` <span style="font-size:10px;color:var(--gold);background:var(--teal);padding:2px 8px;border-radius:999px;vertical-align:2px;font-weight:700;letter-spacing:.04em">${s.tag.toUpperCase()}</span>` : ''}</div>
+        <div class="store-addr">${s.address} · ${s.city}</div>
+      </div>
+      ${s.distance != null ? `<div class="store-distance">${s.distance.toFixed(1)} mi</div>` : ''}
+    </div>
+    `;
+      }).join('');
+      list.querySelectorAll('.store').forEach(el => {
+        el.onclick = () => selectStore(el.dataset.id);
+      });
+    }
+
+    // ----- CALENDAR -----
+    const calState = { viewMonth: null, viewYear: null };
+
+    function initCalendarView() {
+      const t = new Date();
+      calState.viewMonth = t.getMonth();
+      calState.viewYear = t.getFullYear();
+    }
+
+    function renderCalendar() {
+      const cal = document.getElementById('calendar');
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const min = new Date(today); min.setDate(today.getDate() + 1);
+      const max = new Date(today); max.setDate(today.getDate() + 14);
+      const y = calState.viewYear, m = calState.viewMonth;
+      const first = new Date(y, m, 1);
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const startDow = first.getDay();
+      const monthName = first.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      const prevDisabled = (y < today.getFullYear()) || (y === today.getFullYear() && m <= today.getMonth());
+      const nextDisabled = (y > max.getFullYear()) || (y === max.getFullYear() && m >= max.getMonth());
+
+      let cells = '';
+      for (let i = 0; i < startDow; i++) cells += `<button class="cal-day empty" disabled></button>`;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(y, m, d); date.setHours(0, 0, 0, 0);
+        const iso = date.toISOString().split('T')[0];
+        const isToday = date.getTime() === today.getTime();
+        const available = date >= min && date <= max;
+        const selected = state.date === iso;
+        const classes = ['cal-day',
+          isToday ? 'today' : '',
+          available ? 'available' : 'disabled',
+          selected ? 'selected' : ''
+        ].filter(Boolean).join(' ');
+        cells += `<button class="${classes}" ${available ? `data-date="${iso}"` : 'disabled'}>${d}</button>`;
+      }
+
+      const slotLabels = { morning: 'Morning', afternoon: 'Afternoon', evening: 'Evening' };
+      const slotTimes = { morning: '10am to 12pm', afternoon: '12pm to 5pm', evening: '5pm to 9pm' };
+      const pickedHtml = state.date ? `
+    <div class="picked-date">
+      <div class="when-label">Pick a time for ${new Date(state.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+      <div class="slots">
+        ${['morning', 'afternoon', 'evening'].map(s => `
+          <button class="slot ${state.slot === s ? 'selected' : ''}" data-slot="${s}">${slotLabels[s]}<small>${slotTimes[s]}</small></button>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
+      cal.innerHTML = `
+    <div class="cal-head">
+      <div class="month">${monthName}</div>
+      <div class="cal-nav">
+        <button id="calPrev" ${prevDisabled ? 'disabled' : ''}>‹</button>
+        <button id="calNext" ${nextDisabled ? 'disabled' : ''}>›</button>
+      </div>
+    </div>
+    <div class="cal-dow"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+    <div class="cal-grid">${cells}</div>
+    ${pickedHtml}
+  `;
+
+      cal.querySelector('#calPrev').onclick = () => {
+        if (prevDisabled) return;
+        calState.viewMonth--; if (calState.viewMonth < 0) { calState.viewMonth = 11; calState.viewYear--; }
+        renderCalendar();
+      };
+      cal.querySelector('#calNext').onclick = () => {
+        if (nextDisabled) return;
+        calState.viewMonth++; if (calState.viewMonth > 11) { calState.viewMonth = 0; calState.viewYear++; }
+        renderCalendar();
+      };
+      cal.querySelectorAll('.cal-day.available').forEach(btn => {
+        btn.onclick = () => {
+          state.date = btn.dataset.date;
+          renderCalendar();
+          updateNextBtn();
+        };
+      });
+      cal.querySelectorAll('.slot').forEach(btn => {
+        btn.onclick = () => {
+          state.slot = btn.dataset.slot;
+          renderCalendar();
+          updateNextBtn();
+        };
+      });
+    }
+
+    // ----- VALIDATION -----
+    function cleanPhone(v) { return (v || '').replace(/\D/g, ''); }
+    function validPhone(v) {
+      const d = cleanPhone(v);
+      return d.length === 10 || (d.length === 11 && d.startsWith('1'));
+    }
+    function formatPhone(v) {
+      const d = cleanPhone(v).slice(0, 10);
+      if (d.length < 4) return d;
+      if (d.length < 7) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+      return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+    }
+    function validEmail(v) {
+      v = (v || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v)) return false;
+      // common typo guard
+      if (/@(gmal|gmial|gmai|gmil|yhaoo|yahooo|hotnail|hotmai|hotnal)\./i.test(v)) return false;
+      return true;
+    }
+    function validName(v) { return (v || '').trim().length >= 2; }
+
+    function showFieldError(id, msg) {
+      const input = document.getElementById(id + 'Input');
+      const err = document.getElementById(id + 'Error');
+      if (msg) {
+        input.classList.add('input-error');
+        input.classList.remove('input-ok');
+        err.textContent = msg;
+        err.style.display = 'block';
+      } else {
+        input.classList.remove('input-error');
+        if ((input.value || '').trim()) input.classList.add('input-ok');
+        err.style.display = 'none';
+      }
+    }
+
+    function updateProgress() {
+      const bar = document.getElementById('bar');
+      if (state.step === 0) { bar.style.width = '0%'; return; }
+      if (state.step === 'confirm') { bar.style.width = '100%'; return; }
+      const pct = (state.step / TOTAL_STEPS) * 100;
+      bar.style.width = pct + '%';
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      const el = document.querySelector(`.step[data-step="${step}"]`);
+      if (el) el.classList.add('active');
+      state.step = step;
+      updateProgress();
+      updateButtons();
+      if (step === STORE_STEP) {
+        renderStoresList();
+        updateStoreHint();
+        setTimeout(() => { initMap(); refreshMarkers(); if (map) map.invalidateSize(); }, 50);
+      }
+      if (step === WHEN_STEP) renderCalendar();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateButtons() {
+      const back = document.getElementById('backBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const actions = document.getElementById('actions');
+      const actionsInner = actions.querySelector('.actions-inner');
+      if (state.step === 'confirm') {
+        actions.style.display = 'none';
+        return;
+      }
+      actions.style.display = '';
+      if (state.step === 0) {
+        back.style.display = 'none';
+        actionsInner.style.justifyContent = 'center';
+        nextBtn.textContent = 'Get started →';
+      } else {
+        back.style.display = '';
+        back.style.visibility = 'visible';
+        actionsInner.style.justifyContent = 'space-between';
+        nextBtn.textContent = state.step === TOTAL_STEPS ? 'Confirm booking →' : 'Continue →';
+      }
+      updateNextBtn();
+    }
+
+    function updateNextBtn() {
+      const nextBtn = document.getElementById('nextBtn');
+      const valid = validateStep(state.step);
+      nextBtn.disabled = !valid;
+    }
+
+    function validateStep(s) {
+      if (s === 0) return true;
+      if (s === 1) return !!state.category;
+      if (s === 2) return !!state.occasion;
+      if (s === STORE_STEP) return !!state.storeId;
+      if (s === WHEN_STEP) return !!state.date && !!state.slot;
+      if (s === CONTACT_STEP) {
+        return validName(state.firstName)
+          && validName(state.lastName)
+          && validPhone(state.phone)
+          && validEmail(state.email);
+      }
+      return true;
+    }
+
+    function next() {
+      if (state.step === 0) { showStep(1); return; }
+      if (state.step === TOTAL_STEPS) { submitBooking(); return; }
+      if (!validateStep(state.step)) {
+        if (state.step === STORE_STEP) {
+          const hint = document.getElementById('storeHint');
+          if (hint) { hint.style.display = 'block'; hint.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        }
+        return;
+      }
+      showStep(state.step + 1);
+    }
+
+    function back() {
+      if (state.step <= 0) return;
+      showStep(state.step - 1);
+    }
+
+    async function submitBooking() {
+      const store = stores.find(s => s.id === state.storeId);
+      const cat = categories.find(c => c.id === state.category);
+      const date = new Date(state.date + 'T00:00:00');
+      const dayStr = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+      const slotLabels = { morning: 'in the morning (10am to 12pm)', afternoon: 'in the afternoon (12pm to 5pm)', evening: 'in the evening (5pm to 9pm)' };
+
+      const nextBtn = document.getElementById('nextBtn');
+      const backBtn = document.getElementById('backBtn');
+      const originalText = nextBtn.textContent;
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Booking…';
+      backBtn.style.pointerEvents = 'none';
+
+      const payload = {
+        firstName: state.firstName,
+        lastName: state.lastName,
+        phone: state.phone,
+        email: state.email,
+        storeId: state.storeId,
+        date: state.date,
+        slot: state.slot,
+        category: state.category,
+        occasion: state.occasion,
+        zip: (document.getElementById('zipInput') || {}).value || '',
+        note: state.note,
+      };
+
+      try {
+        const r = await fetch('/api/book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await r.json();
+        if (!r.ok || !data.ok) throw new Error(data.error || `Request failed (${r.status})`);
+        if (typeof fbq === 'function') fbq('track', 'Lead');
+      } catch (err) {
+        nextBtn.disabled = false;
+        nextBtn.textContent = originalText;
+        backBtn.style.pointerEvents = '';
+        const phoneErr = document.getElementById('emailError');
+        if (phoneErr) {
+          phoneErr.textContent = 'Something went wrong on our end. Please try again, or call the store directly.';
+          phoneErr.style.display = 'block';
+        }
+        console.error('Booking submit failed:', err);
+        return;
+      }
+
+      document.getElementById('confirmTitle').textContent = `See you ${dayStr}, ${state.firstName}!`;
+      document.getElementById('confirmLead').textContent =
+        `You're all set at our ${store.name} showroom. We'll send a reminder to ${state.email} the day before.`;
+      document.getElementById('sumStore').textContent = `Rana Furniture · ${store.name}`;
+      document.getElementById('sumAddress').textContent = `${store.address}, ${store.city} ${store.zip}`;
+      document.getElementById('sumPhone').innerHTML = `<a href="tel:${store.phone.replace(/[^\d+]/g, '')}">${store.phone}</a>`;
+      document.getElementById('sumWhen').textContent = `${dayStr} · ${slotLabels[state.slot]}`;
+      document.getElementById('sumLooking').textContent = cat.label;
+      const mapQ = encodeURIComponent(`Rana Furniture ${store.address} ${store.city} ${store.zip}`);
+      document.getElementById('sumMapLink').href = `https://www.google.com/maps/search/?api=1&query=${mapQ}`;
+
+      console.log('[Rana demo] Booking submitted:', {
+        ...state,
+        store,
+        category: cat.label,
+        occasion: occasions.find(o => o.id === state.occasion)?.label,
+        submittedAt: new Date().toISOString(),
+      });
+
+      showStep('confirm');
+    }
+
+    function resetFlow() {
+      Object.assign(state, {
+        step: 0, category: null, occasion: null, storeId: null, date: null, slot: null,
+        firstName: '', lastName: '', phone: '', email: '', note: ''
+      });
+      document.getElementById('zipInput').value = '';
+      ['firstName', 'lastName', 'phone', 'email', 'note'].forEach(k => {
+        const el = document.getElementById(k + 'Input');
+        if (el) { el.value = ''; el.classList.remove('input-error', 'input-ok'); }
+      });
+      ['firstName', 'lastName', 'phone', 'email'].forEach(k => {
+        const err = document.getElementById(k + 'Error'); if (err) err.style.display = 'none';
+      });
+      initCalendarView();
+      showStep(0);
+    }
+
+    // ----- INIT -----
+    renderChoiceGrid(document.getElementById('categoryGrid'), categories, 'category');
+    renderChoiceGrid(document.getElementById('occasionGrid'), occasions, 'occasion');
+    initCalendarView();
+
+    // Zip: re-rank list + map on input, auto-select nearest when zip matches
+    document.getElementById('zipInput').addEventListener('input', e => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5);
+      const zip = e.target.value;
+      renderStoresList();
+      if (map) {
+        refreshMarkers();
+        if (zip.length === 5) updateUserMarker(zip);
+      }
+      if (zip.length === 5 && zipCentroids[zip]) {
+        const nearest = rankStores(zip)[0];
+        if (nearest && !state.storeId) selectStore(nearest.id);
+      }
+    });
+
+    // Contact fields
+    function bindContactField(id, stateKey, validator, errMsg) {
+      const input = document.getElementById(id + 'Input');
+      input.addEventListener('input', e => {
+        let v = e.target.value;
+        if (id === 'phone') { v = formatPhone(v); e.target.value = v; }
+        state[stateKey] = v;
+        // clear error while typing; re-validate on blur
+        if (input.classList.contains('input-error') && validator(v)) showFieldError(id, null);
+        updateNextBtn();
+      });
+      input.addEventListener('blur', e => {
+        const v = e.target.value;
+        if (v && !validator(v)) showFieldError(id, errMsg);
+        else if (v) showFieldError(id, null);
+      });
+    }
+    bindContactField('firstName', 'firstName', validName, 'Please enter your first name.');
+    bindContactField('lastName', 'lastName', validName, 'Please enter your last name.');
+    bindContactField('phone', 'phone', validPhone, 'That phone number does not look right. Use 10 digits.');
+    bindContactField('email', 'email', validEmail, 'Check the spelling of your email.');
+
+    document.getElementById('noteInput').addEventListener('input', e => {
+      state.note = e.target.value;
+    });
+
+    updateButtons();
+    updateProgress();
+  </script>
+</body>
+
+</html>

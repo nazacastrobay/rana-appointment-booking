@@ -1,0 +1,12 @@
+{
+  "name": "rana-appointment-booking",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Typeform-style appointment booking demo for Rana Furniture showrooms, backed by an Airtable table.",
+  "scripts": {
+    "deploy": "vercel deploy --prod"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
