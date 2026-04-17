@@ -1064,106 +1064,34 @@
       display: block;
     }
 
-    .floating-card {
+    .hero-sound {
       position: absolute;
-      background: #fff;
-      border-radius: 16px;
-      padding: 14px 16px;
-      box-shadow: 0 18px 40px -12px rgba(16, 61, 66, .25);
-      font-size: 13px;
-    }
-
-    .card-advisor {
-      top: 32px;
-      left: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      max-width: 220px;
-    }
-
-    .card-advisor .avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      flex-shrink: 0;
-    }
-
-    .card-advisor .name {
-      font-weight: 700;
-      color: var(--teal);
-      font-size: 14px
-    }
-
-    .card-advisor .role {
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      margin-top: 2px
-    }
-
-    .card-service {
-      bottom: 28px;
-      right: 24px;
-      max-width: 240px;
-    }
-
-    .card-service .eyebrow-s {
-      display: inline-block;
-      background: #f0fbf4;
-      color: var(--green-dark);
-      font-weight: 700;
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 3px 8px;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
-      margin-bottom: 8px;
-    }
-
-    .card-service .title {
-      font-weight: 700;
-      color: var(--teal);
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .card-service .options {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .card-service .opt {
-      background: var(--cream);
-      color: var(--teal);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-    }
-
-    .card-rating {
-      top: 50%;
-      right: -8px;
-      background: var(--teal);
+      border: none;
+      background: rgba(16, 61, 66, .7);
+      backdrop-filter: blur(6px);
       color: #fff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 600;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      transition: background .15s ease;
+      z-index: 2;
     }
 
-    .card-rating .stars {
-      color: var(--gold);
-      letter-spacing: 2px
+    .hero-sound:hover {
+      background: rgba(16, 61, 66, .9);
+    }
+
+    .intro-hero-video::cue {
+      background: rgba(0, 0, 0, .6);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
     }
 
     @media (max-width:900px) {
@@ -1172,20 +1100,6 @@
         margin: 48px auto 0;
         aspect-ratio: 1;
         max-height: 420px
-      }
-
-      .card-advisor {
-        top: 20px;
-        left: 16px
-      }
-
-      .card-service {
-        bottom: 20px;
-        right: 16px
-      }
-
-      .card-rating {
-        display: none
       }
     }
   </style>
@@ -1230,31 +1144,14 @@
           </div>
         </div>
         <div class="intro-hero">
-          <video class="intro-hero-video" autoplay loop muted playsinline preload="metadata" poster="assets/hero-poster.jpg">
+          <video id="heroVideo" class="intro-hero-video" autoplay loop muted playsinline preload="metadata" poster="assets/hero-poster.jpg">
             <source src="assets/hero.mp4" type="video/mp4">
+            <track kind="captions" src="assets/hero.vtt" srclang="en" label="English" default>
           </video>
-          <div class="floating-card card-advisor">
-            <div class="avatar"
-              style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80')">
-            </div>
-            <div>
-              <div class="name">Carla M.</div>
-              <div class="role">Hialeah showroom</div>
-            </div>
-          </div>
-          <div class="floating-card card-service">
-            <span class="eyebrow-s">Your visit</span>
-            <div class="title">Showroom appointment</div>
-            <div class="options">
-              <span class="opt">Room planning</span>
-              <span class="opt">Furniture picks</span>
-              <span class="opt">Financing</span>
-            </div>
-          </div>
-          <div class="floating-card card-rating">
-            <span class="stars">★★★★★</span>
-            <span>4.6 · 2,100+ reviews</span>
-          </div>
+          <button type="button" class="hero-sound" id="heroSound" aria-label="Unmute video">
+            <svg class="sound-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <svg class="sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          </button>
         </div>
       </section>
 
@@ -1389,6 +1286,26 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
+    // ----- HERO VIDEO: unmute toggle + force captions on -----
+    (function(){
+      const video = document.getElementById('heroVideo');
+      const btn = document.getElementById('heroSound');
+      if(!video || !btn) return;
+      const mutedIcon = btn.querySelector('.sound-muted');
+      const onIcon = btn.querySelector('.sound-on');
+      video.addEventListener('loadedmetadata', () => {
+        if(video.textTracks && video.textTracks[0]) video.textTracks[0].mode = 'showing';
+      });
+      btn.addEventListener('click', () => {
+        video.muted = !video.muted;
+        const unmuted = !video.muted;
+        mutedIcon.style.display = unmuted ? 'none' : 'block';
+        onIcon.style.display = unmuted ? 'block' : 'none';
+        btn.setAttribute('aria-label', unmuted ? 'Mute video' : 'Unmute video');
+        if(unmuted) video.play().catch(()=>{});
+      });
+    })();
+
     // ----- DATA -----
     const stores = [
       { id: 'hialeah', name: 'Hialeah', address: '1460 W 49th Street', city: 'Hialeah, FL', zip: '33012', phone: '305-512-9320', lat: 25.8577, lng: -80.2921 },
